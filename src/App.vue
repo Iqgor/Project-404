@@ -57,13 +57,45 @@ const handleSubmit = () => {
           <a v-for="item in navItems" :key="item.label" :href="item.href" class="nav-link">{{ item.label }}</a>
         </div>
 
-        <button class="rounded-full border border-ink/15 p-2 lg:hidden" aria-label="Menu openen"
-          @click="mobileOpen = !mobileOpen">
+        <button
+          class="rounded-full border border-ink/15 p-2 lg:hidden"
+          :aria-expanded="mobileOpen"
+          aria-controls="mobile-menu"
+          :aria-label="mobileOpen ? 'Menu sluiten' : 'Menu openen'"
+          @click="mobileOpen = !mobileOpen"
+        >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <path
+              v-if="!mobileOpen"
+              d="M3 6h14M3 10h14M3 14h14"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+            <path
+              v-else
+              d="m5 5 10 10M15 5 5 15"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
           </svg>
         </button>
       </nav>
+
+      <div v-if="mobileOpen" id="mobile-menu" class="border-t border-ink/10 px-6 py-4 lg:hidden">
+        <div class="mx-auto flex max-w-7xl flex-col gap-1 text-sm font-medium">
+          <a
+            v-for="item in navItems"
+            :key="item.label"
+            :href="item.href"
+            class="rounded-lg px-3 py-3 transition-colors hover:bg-ink/5"
+            @click="mobileOpen = false"
+          >
+            {{ item.label }}
+          </a>
+        </div>
+      </div>
     </header>
 
     <main>
@@ -113,7 +145,7 @@ const handleSubmit = () => {
               <span class="font-display text-3xl font-bold tracking-[-0.08em]">404<span
                   class="text-[#5f7e3d]">.</span></span>
             </div>
-            <span class="absolute bottom-7 right-7 text-xs uppercase tracking-[0.18em] text-white/45">Good tech, human
+            <span class="absolute hidden sm:block bottom-7 right-7 text-xs uppercase tracking-[0.18em] text-white/45">Good tech, human
               touch</span>
           </div>
         </div>
