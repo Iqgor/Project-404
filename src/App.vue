@@ -81,7 +81,7 @@ const handleSubmit = () => {
           <h1
             class="max-w-4xl font-display text-[3.6rem] font-medium leading-[0.94] tracking-[-0.07em] sm:text-7xl lg:text-[7.4rem]">
             AI die <span class="text-[#73967a]">werkt</span><br />
-            voor jouw!
+            voor jou!
           </h1>
           <div class="mt-10 flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
             <p class="max-w-md text-lg leading-relaxed text-ink/65">Wij helpen ambitieuze teams om met AI concrete
