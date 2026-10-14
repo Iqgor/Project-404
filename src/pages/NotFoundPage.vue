@@ -54,7 +54,7 @@ import { RouterLink } from 'vue-router'
           </div>
         </div>
 
-        <p class="absolute bottom-[-4rem] right-0 hidden text-xs uppercase tracking-[0.18em] text-white/30 lg:block">
+        <p class="absolute -bottom-[4rem] right-0 hidden text-xs uppercase tracking-[0.18em] text-white/30 lg:block">
           Error: destination not found / human touch required
         </p>
       </section>

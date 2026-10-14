@@ -5,6 +5,12 @@ import { RouterLink } from 'vue-router'
 const mobileOpen = ref(false)
 const submitted = ref(false)
 const currentYear = new Date().getFullYear()
+const contactForm = ref({
+  name: '',
+  email: '',
+  company: '',
+  message: '',
+})
 
 const navItems = [
   { label: 'Oplossingen', href: '#oplossingen' },
@@ -37,6 +43,11 @@ const solutions = [
 ]
 
 const handleSubmit = () => {
+  const subject = encodeURIComponent(`Kennismaking via de website - ${contactForm.value.company || contactForm.value.name}`)
+  const body = encodeURIComponent(
+    `Naam: ${contactForm.value.name}\nE-mail: ${contactForm.value.email}\nOrganisatie: ${contactForm.value.company || 'Niet opgegeven'}\n\nWaar kunnen we mee helpen?\n${contactForm.value.message}`,
+  )
+  window.location.href = `mailto:hallo@project404.nl?subject=${subject}&body=${body}`
   submitted.value = true
 }
 </script>
@@ -300,14 +311,63 @@ const handleSubmit = () => {
                 Technologie met een <span class="text-[#68866d]">menselijk kompas.</span></h2>
             </div>
             <div class="grid grid-cols-2 gap-8 border-l border-ink/15 pl-7 sm:pl-12">
-              <div><strong class="font-display text-5xl tracking-[-0.06em]">3</strong>
-                <p class="mt-2 text-sm text-ink/65">oprichters met één missie</p>
+                <div><strong class="font-display text-5xl tracking-[-0.06em]">1</strong>
+                  <p class="mt-2 text-sm text-ink/65">team van begin tot eind</p>
               </div>
-              <div><strong class="font-display text-5xl tracking-[-0.06em]">∞</strong>
-                <p class="mt-2 text-sm text-ink/65">ruimte voor ideeën</p>
+                <div><strong class="font-display text-5xl tracking-[-0.06em]">0</strong>
+                  <p class="mt-2 text-sm text-ink/65">onnodige tussenlagen</p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="contact" class="bg-ink px-6 py-20 text-white lg:px-10 lg:py-28">
+        <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+            <div>
+              <p class="eyebrow text-electric">Klaar om te beginnen?</p>
+              <h2 class="mt-5 max-w-lg font-display text-4xl font-medium leading-tight tracking-[-0.05em] sm:text-5xl">
+                Laten we kijken wat er <span class="text-electric">mogelijk is.</span>
+              </h2>
+              <p class="mt-6 max-w-md text-sm leading-relaxed text-white/60">
+                Vertel kort waar je tegenaan loopt. We reageren binnen twee werkdagen met een eerste, concrete gedachte.
+              </p>
+              <a class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-electric underline-offset-4 hover:underline" href="mailto:hallo@project404.nl">
+                hallo@project404.nl <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            <form v-if="!submitted" class="grid gap-6" @submit.prevent="handleSubmit">
+              <div class="grid gap-6 sm:grid-cols-2">
+                <label class="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-white/60">
+                  Naam
+                  <input v-model="contactForm.name" class="contact-input" type="text" name="name" autocomplete="name" required placeholder="Jouw naam" />
+                </label>
+                <label class="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-white/60">
+                  E-mail
+                  <input v-model="contactForm.email" class="contact-input" type="email" name="email" autocomplete="email" required placeholder="jij@organisatie.nl" />
+                </label>
+              </div>
+              <label class="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-white/60">
+                Organisatie <span class="font-normal normal-case tracking-normal text-white/35">(optioneel)</span>
+                <input v-model="contactForm.company" class="contact-input" type="text" name="company" autocomplete="organization" placeholder="De naam van je organisatie" />
+              </label>
+              <label class="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-white/60">
+                Waar kunnen we mee helpen?
+                <textarea v-model="contactForm.message" class="contact-input min-h-28 resize-y" name="message" required placeholder="Vertel ons over je uitdaging..."></textarea>
+              </label>
+              <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <p class="max-w-xs text-xs leading-relaxed text-white/40">Je e-mailprogramma opent met je bericht. We gebruiken je gegevens alleen om te reageren.</p>
+                <button class="group inline-flex items-center gap-3 rounded-full bg-electric px-6 py-3 font-bold text-ink transition-transform hover:-translate-y-1" type="submit">
+                  Verstuur bericht <span class="text-lg transition-transform group-hover:translate-x-1">↗</span>
+                </button>
+              </div>
+            </form>
+            <div v-else class="flex min-h-64 flex-col justify-center rounded-2xl border border-electric/30 bg-white/5 p-8">
+              <p class="text-2xl font-medium">Je mailprogramma staat klaar.</p>
+              <p class="mt-3 text-sm leading-relaxed text-white/60">Verstuur het bericht vanuit je e-mailprogramma. We komen binnen twee werkdagen bij je terug.</p>
+              <button class="mt-6 w-fit text-sm font-bold text-electric underline-offset-4 hover:underline" type="button" @click="submitted = false">Nog een bericht sturen</button>
+            </div>
         </div>
       </section>
 
@@ -316,8 +376,8 @@ const handleSubmit = () => {
     <footer class="bg-ink px-6 pb-8 text-white lg:px-10">
       <div
         class="mx-auto flex max-w-7xl flex-col justify-between gap-5 border-t border-white/15 pt-7 text-xs text-white/50 sm:flex-row">
-        <span>© {{ currentYear }} Project 404</span><span>Gemaakt met aandacht in Nederland</span><a href="#"
-          class="text-electric">Instagram ↗</a>
+        <span>© {{ currentYear }} Project 404</span><span>Gemaakt met aandacht in Nederland</span><a href="#contact"
+            class="text-electric">Neem contact op ↗</a>
       </div>
     </footer>
   </div>

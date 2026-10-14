@@ -21,4 +21,10 @@ body { margin: 0; font-family: 'Inter', sans-serif; }
 .contact-input { width: 100%; border: 0; border-bottom: 1px solid rgba(255,255,255,.25); background: transparent; padding: .9rem 0; color: white; outline: none; }
 .contact-input::placeholder { color: rgba(255,255,255,.45); }
 .contact-input:focus { border-color: #b9f552; }
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid #b9f552; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
 @media (max-width: 640px) { .orbital-one { width: 330px; } .orbital-two { width: 240px; } .orbital-three { width: 240px; } }

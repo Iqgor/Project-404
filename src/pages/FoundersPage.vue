@@ -141,9 +141,9 @@ const isFlipped = (number) => flippedCards.value.includes(number)
               @keydown.enter.prevent="toggleCard(founder.number)"
               @keydown.space.prevent="toggleCard(founder.number)"
             >
-              <div class="relative min-h-[27rem] transition-transform duration-700 [transform-style:preserve-3d]" :class="{ '[transform:rotateY(180deg)]': isFlipped(founder.number) }">
-                <div :class="['absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-ink/10 p-6 [backface-visibility:hidden]', founder.accent]">
-                  <div class="relative flex aspect-[4/3] items-end">
+              <div class="relative min-h-108 transform-3d transition-transform duration-700" :class="{ 'transform-[rotateY(180deg)]': isFlipped(founder.number) }">
+                <div :class="['absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-ink/10 p-6 backface-hidden', founder.accent]">
+                  <div class="relative flex aspect-4/3 items-end">
                     <div class="absolute -right-8 -top-10 h-44 w-44 rounded-full border border-ink/10"></div>
                     <div class="absolute -right-2 top-6 h-32 w-32 rounded-full border border-ink/10"></div>
                     <span class="relative font-display text-[9rem] font-medium leading-none tracking-[-0.12em] text-ink/15">{{ founder.initials }}</span>
